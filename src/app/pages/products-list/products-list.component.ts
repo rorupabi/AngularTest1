@@ -1,14 +1,20 @@
 import { Component, signal } from '@angular/core';
 import { Product } from '../../models/products.model';
+import { ProductCardComponent } from "./product-card/product-card.component";
 
 @Component({
   selector: 'app-products-list',
-  imports: [],
-  templateUrl: './products-list.component.html',
+  imports: [ProductCardComponent],
+  template: `
+  <div class="p-8 grid sm:grid-cols-2 grid-cols-2 gap-4">
+    @for (product of products(); track product.id) {
+      <app-product-card [product]="product"/>
+    }
+  </div>`,
   styleUrl: './products-list.component.scss'
 })
 export class ProductsListComponent {
-  products = signal<Product[]> ([
+  products = signal<Product[]>([
     {
       id: 1,
       title: 'Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops',
